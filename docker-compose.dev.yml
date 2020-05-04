@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  app:
+    command: yarn start
+    volumes:
+      - .:/usr/src/your-app
+    environment:
+      - NODE_ENV=development

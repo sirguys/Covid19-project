@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import get from 'lodash/get'
 
-import { formatNumber, percentage } from './helpers/utility'
+import { formatNumber, percentage, mergeByCountryCode } from './helpers/utility'
 import logo from './logo.svg';
 import './App.css';
 
@@ -16,9 +16,6 @@ function App() {
 
   const { data: countriesData, countriesError } = useSWR(apiCountries, fetcher)
   const { data: covidData, covidError } = useSWR(apiCovid19, fetcher)
-
-  console.log(countriesData, 'countriesData')
-  console.log(covidData, 'covidData')
 
   if (!countriesData || !covidData) {
     return <p>Loading...</p>
@@ -34,10 +31,6 @@ function App() {
     0
   ) 
 
-  //ประเทศทั่วโลก
-  const allCountries =
-    countriesData && countriesData.data.map(countrie => countrie.name)
-
   //ข้อมูลผู้ติดเชื้อรวมทั่วโลก
   const covidDataGlobal = get(covidData, 'data.Global')
 
@@ -46,19 +39,15 @@ function App() {
 
   //จำนวนผู้ติดเชื้อ (% เมื่อเทียบกับจำนวนประชากร)
   const infected = percentage(covidDataGlobal.TotalConfirmed, worldPopulation) 
-  console.log(infected.toFixed(2), 'จำนวนผู้ติดเชื้อ (% เมื่อเทียบกับจำนวนประชากร) 0.05%')
 
   //จำนวนผู้ที่รักษาหาย (% เมื่อเทียบกับจำนวนติดเชื้อทั่วโลก)
   const recovered = percentage(covidDataGlobal.TotalRecovered, covidDataGlobal.TotalConfirmed)
-  console.log(Math.floor(recovered), 'จำนวนผู้ที่รักษาหาย (% เมื่อเทียบกับจำนวนติดเชื้อทั่วโลก 32%')
   
   //จำนวนที่เสียชีวิตทั่วโลก (% เมื่อเทียบกับจำนวนผู้ติดเชื้อทั่วโลก)
   const totalDeaths = percentage(covidDataGlobal.TotalDeaths, covidDataGlobal.TotalConfirmed)
-  console.log(Math.floor(totalDeaths), 'จำนวนที่เสียชีวิตทั่วโลก (% เมื่อเทียบกับจำนวนผู้ติดเชื้อทั่วโลก) 7%')
 
-  // const sortedData = data.Countries.sort((a, b) =>
-  //   a.TotalConfirmed < b.TotalConfirmed ? 1 : -1
-  // )
+  //Complete Data รายประเทศ
+  const completeDataByCountry = mergeByCountryCode(countriesData.data, covidDataByCountry)
 
   return (
     <div className="App">

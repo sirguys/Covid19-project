@@ -8,3 +8,9 @@ export const formatNumber = number =>
 export const findPercentage = (percent, total) => (percent / 100) * total
 
 export const percentage = (data, total) => (data / total) * 100
+
+export const mergeByCountryCode = (a1, a2) =>
+  a1.map(itm => ({
+    ...a2.find(item => item.CountryCode === itm.alpha2Code && item),
+    ...itm
+  }))

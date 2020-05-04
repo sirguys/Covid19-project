@@ -5,4 +5,6 @@ export const formatNumber = number =>
            ? numeral(number).format('0,0.[00]')
            : number.toString()
 
-export const percentage = (percent, total) => ((percent / 100) * total)
+export const findPercentage = (percent, total) => (percent / 100) * total
+
+export const percentage = (data, total) => (data / total) * 100

@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import get from 'lodash/get'
 
-import { formatNumber } from './helpers/utility'
+import { formatNumber, percentage } from './helpers/utility'
 import logo from './logo.svg';
 import './App.css';
 
@@ -45,9 +45,16 @@ function App() {
   const covidDataByCountry = get(covidData, 'data.Countries')
 
   //จำนวนผู้ติดเชื้อ (% เมื่อเทียบกับจำนวนประชากร)
-  // const percen =
-  //   (covidData && covidData.Country.TotalConfirmed / worldPopulation) * 100
-  // console.log(covidData && Math.floor(percen), 'percen latestCovidData')
+  const infected = percentage(covidDataGlobal.TotalConfirmed, worldPopulation) 
+  console.log(infected.toFixed(2), 'จำนวนผู้ติดเชื้อ (% เมื่อเทียบกับจำนวนประชากร) 0.05%')
+
+  //จำนวนผู้ที่รักษาหาย (% เมื่อเทียบกับจำนวนติดเชื้อทั่วโลก)
+  const recovered = percentage(covidDataGlobal.TotalRecovered, covidDataGlobal.TotalConfirmed)
+  console.log(Math.floor(recovered), 'จำนวนผู้ที่รักษาหาย (% เมื่อเทียบกับจำนวนติดเชื้อทั่วโลก 32%')
+  
+  //จำนวนที่เสียชีวิตทั่วโลก (% เมื่อเทียบกับจำนวนผู้ติดเชื้อทั่วโลก)
+  const totalDeaths = percentage(covidDataGlobal.TotalDeaths, covidDataGlobal.TotalConfirmed)
+  console.log(Math.floor(totalDeaths), 'จำนวนที่เสียชีวิตทั่วโลก (% เมื่อเทียบกับจำนวนผู้ติดเชื้อทั่วโลก) 7%')
 
   // const sortedData = data.Countries.sort((a, b) =>
   //   a.TotalConfirmed < b.TotalConfirmed ? 1 : -1

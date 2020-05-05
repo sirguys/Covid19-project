@@ -2,10 +2,18 @@ import React from 'react';
 import useSWR from 'swr'
 import axios from 'axios'
 import get from 'lodash/get'
+import styled from 'styled-components'
 
-import { formatNumber, percentage, mergeByCountryCode } from './helpers/utility'
-import logo from './logo.svg';
-import './App.css';
+import {
+  percentage,
+  mergeByCountryCode,
+  findPercentage,
+  sortedData,
+} from './helpers/utility'
+import Loading from './components/Loading'
+import GlobalStyles from './styles/global-styles'
+import Header from './components/Header'
+import Content from './components/Content'
 
 const apiCountries = 'https://restcountries.eu/rest/v2/all'
 const apiCovid19 = 'https://api.covid19api.com/summary'
@@ -18,7 +26,7 @@ function App() {
   const { data: covidData, covidError } = useSWR(apiCovid19, fetcher)
 
   if (!countriesData || !covidData) {
-    return <p>Loading...</p>
+    return <Loading />
   }
 
   if (countriesError || covidError) {
@@ -49,15 +57,26 @@ function App() {
   //Complete Data รายประเทศ
   const completeDataByCountry = mergeByCountryCode(countriesData.data, covidDataByCountry)
 
+  //เลือกเฉพาะประเทศที่มีเปอร์เซนต์ผู้ติดเชื้อสูง (% เมื่อเทียบกับจำนวนติดเชื้อทั่วโลก) มากกว่า 10%
+  const percentageOfInfected = findPercentage(5, covidDataGlobal.TotalConfirmed)
+  const mostInfectedCountry = completeDataByCountry.filter(
+    item => item.TotalConfirmed > percentageOfInfected
+  )
+  
+  //เรียงจากสูงไปต่ำ
+  const data = sortedData(mostInfectedCountry)
+  console.log(data, 'sortedData=================')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          World Population{' '}
-          <code> {formatNumber(worldPopulation)} คน</code>
-        </p>
-      </header>
+    <div>
+      <GlobalStyles />
+      <Header
+        worldPopulation={worldPopulation}
+        infected={infected}
+        recovered={recovered}
+        totalDeaths={totalDeaths}
+      />
+      <Content data={data}/>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { Parallax } from 'react-scroll-parallax'
 
 import { formatNumber } from '../helpers/utility'
 import Moon from '../images/moon.png'
@@ -75,10 +76,14 @@ export default ({ worldPopulation, infected, recovered, totalDeaths }) => {
     <>
       <GridContainer>
         <div>
-          <HeaderImage src={Moon} type="moon" alt="moon" />
+          <Parallax y={[-150, 40]} tagOuter="figure">
+            <HeaderImage src={Moon} type="moon" alt="moon" />
+          </Parallax>
         </div>
         <div>
-          <HeaderImage src={Text} type="text" alt="text" />
+          <Parallax y={[-20, 10]} tagOuter="figure">
+            <HeaderImage src={Text} type="text" alt="text" />
+          </Parallax>
           <Info>
             <span className="topic">จำนวนประชากรทั่วโลก</span>
             <span className="desc">{formatNumber(worldPopulation)} คน</span>
@@ -104,7 +109,9 @@ export default ({ worldPopulation, infected, recovered, totalDeaths }) => {
             </span>
             <span className="desc">{totalDeaths.toFixed(2)} %</span>
           </Info>
-          <CandleImage src={Candle} type="candle" alt="candle" />
+          <Parallax x={[-20, 10]} tagOuter="figure">
+            <CandleImage src={Candle} type="candle" alt="candle" />
+          </Parallax>
         </div>
       </GridContainer>
     </>

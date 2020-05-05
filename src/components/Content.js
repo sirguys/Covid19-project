@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import { formatNumber } from '../helpers/utility'
 import Frame from '../images/frame.png'
@@ -24,32 +24,16 @@ const GridContainer = styled.div`
 
   div {
     text-align: center;
-    padding: 20px 0;
     position: relative;
     font-size: 1rem;
+    transition: all .3s ease-out;
 
     span {
       display: block;
     }
-  }
-`
 
-const Info = styled.div`
-  position: relative;
-  margin: 0;
-  padding: 0;
-
-  .topic {
-    font-size: 1.2rem;
-  }
-  .desc {
-    font-size: 1.2rem;
-  }
-  span {
-    display: block;
-
-    span {
-      font-size: 1rem;
+    &:hover {
+      transform: scale(1.1);
     }
   }
 `
@@ -60,6 +44,28 @@ const FlagImage = styled.img`
   margin: 0 auto;
 `
 
+const ImageContainer = styled.div`
+    display: block;
+    height: 150px;
+    padding: 0;
+`
+
+const InfoContainer = styled.div`
+  display: block;
+  line-height: 1.5;
+
+  .country {
+    color: #a0de59;
+  }
+  .currencies {
+    font-size: .9rem;
+  }
+  .confirmed {
+    font-size: .8rem;
+    color: #adbcbf;
+  }
+`
+
 export default ({ data }) => {
   return (
     <Container>
@@ -68,16 +74,23 @@ export default ({ data }) => {
           return (
             <>
               <div key={`${item.Slug}-${item.numericCode}`}>
-                <FlagImage src={item.flag} alt={item.demonym} />
-                {item.Country}
-                {` (${item.CountryCode})`}
-                {` (${item.timezones[0]})`}
-                <span>
-                  สกุลเงิน {item.currencies[0].name} ({item.currencies[0].code})
-                </span>
-                <span>{`จำนวนผู้ติดเชื้อ ${formatNumber(
-                  item.TotalConfirmed
-                )} คน`}</span>
+                <ImageContainer>
+                  <FlagImage src={item.flag} alt={item.demonym} />
+                </ImageContainer>
+                <InfoContainer>
+                  <span className="country">
+                    {item.Country}
+                    {` (${item.CountryCode})`}
+                    {` (${item.timezones[0]})`}
+                  </span>
+                  <span>
+                    สกุลเงิน {item.currencies[0].name} (
+                    {item.currencies[0].code})
+                  </span>
+                  <span className="confirmed">{`จำนวนผู้ติดเชื้อ ${formatNumber(
+                    item.TotalConfirmed
+                  )} คน`}</span>
+                </InfoContainer>
               </div>
             </>
           )

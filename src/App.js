@@ -2,7 +2,6 @@ import React from 'react';
 import useSWR from 'swr'
 import axios from 'axios'
 import get from 'lodash/get'
-import styled from 'styled-components'
 
 import {
   percentage,
@@ -65,7 +64,6 @@ function App() {
   
   //เรียงจากสูงไปต่ำ
   const data = sortedData(mostInfectedCountry)
-  console.log(data, 'sortedData=================')
 
   return (
     <div>

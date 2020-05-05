@@ -3,10 +3,16 @@ import styled from 'styled-components'
 
 import { formatNumber } from '../helpers/utility'
 import Frame from '../images/frame.png'
+import Shape from '../images/shape.png'
 
 const Container = styled.div`
-    max-width: 1273px;
-    margin: 0 auto;
+  max-width: 1273px;
+  margin: 0 auto;
+  background: url(${Frame});
+  background-attachment: scroll;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top center;
 `
 
 const GridContainer = styled.div`
@@ -14,12 +20,7 @@ const GridContainer = styled.div`
   grid-template-columns: auto auto;
   grid-gap: 60px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  padding: 200px 100px;
-  background: url(${Frame});
-  background-attachment: scroll;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top center;
+  padding: 100px 100px;
   padding-bottom: 1355px;
 
   div {
@@ -66,9 +67,26 @@ const InfoContainer = styled.div`
   }
 `
 
-export default ({ data }) => {
+const GlobalInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 170px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: #FFE1A3;
+
+  &::before, ::after {
+    content: url(${Shape});
+    margin: 0 15px;
+  }
+`
+
+export default ({ data, covidDataGlobal }) => {
   return (
     <Container>
+      <GlobalInfo>
+        <span>จำนวนผู้ติดเชื้อทั่วโลก {formatNumber(covidDataGlobal.TotalConfirmed)} คน</span>
+      </GlobalInfo>
       <GridContainer>
         {data.map(item => {
           return (

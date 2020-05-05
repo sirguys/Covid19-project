@@ -74,7 +74,7 @@ function App() {
         recovered={recovered}
         totalDeaths={totalDeaths}
       />
-      <Content data={data}/>
+      <Content data={data} covidDataGlobal={covidDataGlobal}/>
     </div>
   )
 }

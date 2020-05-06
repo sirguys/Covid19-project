@@ -1,4 +1,4 @@
-# Dockerizing A React Application (with docker and nginx)
+# How to install
 
 - Containerization on the front-end with React and docker in development and production, and deployment of a React application with docker and nginx
 

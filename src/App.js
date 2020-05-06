@@ -9,29 +9,25 @@ import {
   findPercentage,
   sortedData,
 } from './helpers/utility'
-import Loading from './components/Loading'
 import GlobalStyles from './styles/global-styles'
-import Header from './components/Header'
-import Content from './components/Content'
+import {
+  Content,
+  Header,
+  Loading
+} from './components'
 
 const apiCountries = 'https://restcountries.eu/rest/v2/all'
 const apiCovid19 = 'https://api.covid19api.com/summary'
 
-const fetcher = url => axios.get(url)
-
 function App() {
 
-  const { data: countriesData, countriesError } = useSWR(apiCountries, fetcher)
-  const { data: covidData, covidError } = useSWR(apiCovid19, fetcher)
+  const { data: countriesData, countriesError } = useSWR(apiCountries)
+  const { data: covidData, covidError } = useSWR(apiCovid19)
 
-  if (!countriesData || !covidData) {
-    return <Loading />
-  }
+  if (!countriesData || !covidData) return <Loading />
 
-  if (countriesError || covidError) {
-    return <p>Error...</p>
-  }
-
+  if (countriesError || covidError) return <p>Error...</p>
+  
   //จำนวนประชากรทั่วโลก
   const worldPopulation = countriesData && countriesData.data.reduce(
     (sum, data) => sum + data.population,

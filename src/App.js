@@ -1,6 +1,5 @@
 import React from 'react';
 import useSWR from 'swr'
-import axios from 'axios'
 import get from 'lodash/get'
 
 import {

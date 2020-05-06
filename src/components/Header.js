@@ -35,6 +35,15 @@ const HeaderImage = styled.img`
   width: ${props => props.type === 'moon' && '80%'};
   margin-top: ${props => props.type === 'text' && '80px'};
   animation: ${Rotate} ${props => props.type === 'moon' && '8s infinite linear'};
+
+  @media (max-width: 1019px) {
+    width: 200px;
+  }
+
+  @media (max-width: 607px) {
+    width: 60px;
+    margin-top: 20px;
+  }
 `
 
 const MoveUpDown = keyframes`
@@ -49,6 +58,14 @@ const MoveUpDown = keyframes`
 
 const CandleImage = styled.img`
   animation: ${MoveUpDown} 2s infinite linear;
+
+  @media (max-width: 1019px) {
+    width: 200px;
+  }
+
+  @media (max-width: 607px) {
+    width: 100px;
+  }
 `
 
 const Info = styled.div`
@@ -58,15 +75,36 @@ const Info = styled.div`
 
   .topic {
     font-size: 1.2rem;
+
+    @media (max-width: 1019px) {
+    }
+
+    @media (max-width: 607px) {
+      font-size: .7rem;
+    }
   }
   .desc {
     font-size: 1.2rem;
+
+    @media (max-width: 1019px) {
+    }
+
+    @media (max-width: 607px) {
+      font-size: .7rem;
+    }
   }
   span {
     display: block;
     
     span {
         font-size: 1rem;
+
+        @media (max-width: 1019px) {
+        }
+
+        @media (max-width: 607px) {
+          font-size: .7rem;
+        }
     }
   }
 `

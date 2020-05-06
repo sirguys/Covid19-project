@@ -1,17 +1,17 @@
 # How to install
 
 ### `yarn`
-run คำสั่ง `yarn` เพื่อลง dependencies
+- run คำสั่ง `yarn` เพื่อลง dependencies
 
 ### `yarn start`
-run คำสั่ง `yarn start` เพื่อ Runs web app ใน development mode
-เปิด URL `http://localhost:3000/` บน browser
+- run คำสั่ง `yarn start` เพื่อ Runs web app ใน development mode
+- เปิด URL `http://localhost:3000/` บน browser
 
 # Docker Development Mode
 
 ### `yarn compose:dev`
-run คำสั่ง `yarn compose:dev` เพื่อ Runs web app ใน development mode บน Docker container
-ปิด URL `http://localhost:3000/` บน browser
+- run คำสั่ง `yarn compose:dev` เพื่อ Runs web app ใน development mode บน Docker container
+- เปิด URL `http://localhost:3000/` บน browser
 
 # Docker & Nginx
 
